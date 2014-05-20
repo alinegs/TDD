@@ -28,9 +28,13 @@ public class TestMathEvaluation {
 	}
 	
 	@Test
-	public void testVerificarPrecedenciaDeOperadores(){
+	public void testVerificarPrecedenciaDeOperadoresSemParenteses(){
 		String input =  "3 + 2 * 1 / 0 ( )";
 		MathEvaluation math1 = new MathEvaluation(input);
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
 		assertEquals('/', math1.popPostFix());
 		assertEquals('*', math1.popPostFix());
 		assertEquals('+', math1.popPostFix());
@@ -40,6 +44,12 @@ public class TestMathEvaluation {
 	public void testVerificarPrecedenciaDeOperadoresComParenteses(){
 		String input =  "3 + 2 * 1 / 4 - ( 2 - 1 )";
 		MathEvaluation math1 = new MathEvaluation(input);
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
+		math1.popPostFix();
 		assertEquals('-', math1.popPostFix());
 		assertEquals('/', math1.popPostFix());
 		assertEquals('*', math1.popPostFix());
@@ -48,4 +58,24 @@ public class TestMathEvaluation {
 		// 3 2 1 4 2 5 + / * - +
 		// - / * + -  
 	}
-}
+	
+	@Test
+	public void testVerificarPrecedenciaNumerosEOperadores(){
+		String input =  "3 * ( 2 + 5 )"; 
+		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals(3, math1.popPostFix());
+		assertEquals(2, math1.popPostFix());
+		assertEquals(5, math1.popPostFix());
+		assertEquals('+', math1.popPostFix());
+		assertEquals('*', math1.popPostFix());
+	}
+	
+	@Test
+	public void testVerificarResultado(){
+		String input =  "3 * ( 2 + 5 )"; 
+		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals(21, math1.calcularExpressao());
+		
+	}
+		// 
+	}

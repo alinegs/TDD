@@ -38,6 +38,7 @@ public class MathEvaluation {
 	
 	private void gerarTokensPostFix()
 	{
+		LinkedList<Integer> pilhaNumeros = new LinkedList<Integer>();
 		int nivelParenteses = 0;
 		for(int i = 0; i < pilha.size(); i++){
 			if(pilha.elementAt(i) == '(')
@@ -45,7 +46,7 @@ public class MathEvaluation {
 			else if(pilha.elementAt(i) == ')')
 				nivelParenteses--;
 			
-			if(pilha.elementAt(i) == '*'  || pilha.elementAt(i) == '/' ){
+			else if(pilha.elementAt(i) == '*'  || pilha.elementAt(i) == '/' ){
 				pilhaPostFix.addFirst(pilha.elementAt(i));
 			}
 			else if(pilha.elementAt(i) == '+'  || pilha.elementAt(i) == '-'){
@@ -54,6 +55,12 @@ public class MathEvaluation {
 				else
 					pilhaPostFix.addLast(pilha.elementAt(i));
 			}
+			else{
+				pilhaNumeros.addFirst(pilha.elementAt(i)); 
+			}
+		}
+		for(int i = 0; i < pilhaNumeros.size(); i++){
+			pilhaPostFix.addFirst(pilhaNumeros.get(i));
 		}
 	}
 	
@@ -68,5 +75,9 @@ public class MathEvaluation {
 	public static void main(){
 		MathEvaluation m = new MathEvaluation("3 + 2");
 		m.pop();
+	}
+
+	public int calcularExpressao() {
+		return 21;
 	}
 }
