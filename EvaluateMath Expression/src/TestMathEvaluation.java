@@ -13,8 +13,9 @@ public class TestMathEvaluation {
 	
 	@Test
 	public void testArmazenarMaisDeUmToken() {
-		String input = "3 + 2 * 1 / 0 ( )";
+		String input = "3 + 2 * 1 / 0 ( ) -";
 		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals('-', math1.pop());
 		assertEquals(')', math1.pop());
 		assertEquals('(', math1.pop());
 		assertEquals(0, math1.pop());
@@ -24,6 +25,15 @@ public class TestMathEvaluation {
 		assertEquals(2, math1.pop());
 		assertEquals('+', math1.pop());
 		assertEquals(3, math1.pop());
+	}
+	
+	@Test
+	public void testVerificarPrecedenciaDeOperadores(){
+		String input =  "3 + 2 * 1 / 0 ( )";
+		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals('+', math1.popPostFix());
+		assertEquals('/', math1.popPostFix());
+		assertEquals('*', math1.popPostFix());
 	}
 
 }
