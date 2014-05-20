@@ -5,9 +5,24 @@ import org.junit.Test;
 public class TestMathEvaluation {
 
 	@Test
-	public void testArmazenarToken() {
+	public void testArmazenarUmToken() {
 		String input = "3";
 		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals(3, math1.pop());
+	}
+	
+	@Test
+	public void testArmazenarMaisDeUmToken() {
+		String input = "3 + 2 * 1 / 0 ( )";
+		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals(')', math1.pop());
+		assertEquals('(', math1.pop());
+		assertEquals(0, math1.pop());
+		assertEquals('/', math1.pop());
+		assertEquals(1, math1.pop());
+		assertEquals('*', math1.pop());
+		assertEquals(2, math1.pop());
+		assertEquals('+', math1.pop());
 		assertEquals(3, math1.pop());
 	}
 
