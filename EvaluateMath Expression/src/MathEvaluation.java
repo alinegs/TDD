@@ -1,10 +1,10 @@
+import java.util.LinkedList;
 import java.util.Stack;
-
 
 public class MathEvaluation {
 	private String input;
 	private Stack<Integer> pilha = new Stack();
-	private Stack<Integer> pilhaPostFix = new Stack();
+	private LinkedList<Integer> pilhaPostFix = new LinkedList<Integer>();
 
 	
 	public MathEvaluation(String input) {
@@ -38,21 +38,29 @@ public class MathEvaluation {
 	
 	private void gerarTokensPostFix()
 	{
-		for(int i = 0; i < pilha.size(); i++){		
-			if (pilha.elementAt(i) == '*'  || pilha.elementAt(i) == '/' )
-				pilhaPostFix.push(pilha.elementAt(i));
+		int nivelParenteses = 0;
+		for(int i = 0; i < pilha.size(); i++){
+			if(pilha.elementAt(i) == '(')
+				nivelParenteses++;
+			else if(pilha.elementAt(i) == ')')
+				nivelParenteses--;
+			
+			if(pilha.elementAt(i) == '*'  || pilha.elementAt(i) == '/' ){
+				pilhaPostFix.addFirst(pilha.elementAt(i));
+			}
+			else if(pilha.elementAt(i) == '+'  || pilha.elementAt(i) == '-'){
+				if(nivelParenteses > 0)
+					pilhaPostFix.addFirst(pilha.elementAt(i));
+				else
+					pilhaPostFix.addLast(pilha.elementAt(i));
+			}
 		}
-		
-		for(int i = 0; i < pilha.size(); i++){		
-			if (pilha.elementAt(i) == '+'  || pilha.elementAt(i) == '-' )
-				pilhaPostFix.push(pilha.elementAt(i));
-		}
-		
 	}
 	
 	public int popPostFix() {
-		return pilhaPostFix.pop();
+		return pilhaPostFix.poll();
 	}
+	
 	public int pop() {
 		return pilha.pop();
 	}
@@ -61,5 +69,4 @@ public class MathEvaluation {
 		MathEvaluation m = new MathEvaluation("3 + 2");
 		m.pop();
 	}
-
 }

@@ -31,9 +31,21 @@ public class TestMathEvaluation {
 	public void testVerificarPrecedenciaDeOperadores(){
 		String input =  "3 + 2 * 1 / 0 ( )";
 		MathEvaluation math1 = new MathEvaluation(input);
-		assertEquals('+', math1.popPostFix());
 		assertEquals('/', math1.popPostFix());
 		assertEquals('*', math1.popPostFix());
+		assertEquals('+', math1.popPostFix());
 	}
-
+	
+	@Test
+	public void testVerificarPrecedenciaDeOperadoresComParenteses(){
+		String input =  "3 + 2 * 1 / 4 - ( 2 - 1 )";
+		MathEvaluation math1 = new MathEvaluation(input);
+		assertEquals('-', math1.popPostFix());
+		assertEquals('/', math1.popPostFix());
+		assertEquals('*', math1.popPostFix());
+		assertEquals('+', math1.popPostFix());
+		assertEquals('-', math1.popPostFix());
+		// 3 2 1 4 2 5 + / * - +
+		// - / * + -  
+	}
 }
