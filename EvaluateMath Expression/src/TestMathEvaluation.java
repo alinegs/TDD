@@ -75,7 +75,5 @@ public class TestMathEvaluation {
 		String input =  "3 * ( 2 + 5 )"; 
 		MathEvaluation math1 = new MathEvaluation(input);
 		assertEquals(21, math1.calcularExpressao());
-		
 	}
-		// 
-	}
+}

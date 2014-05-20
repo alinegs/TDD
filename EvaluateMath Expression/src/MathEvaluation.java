@@ -78,6 +78,35 @@ public class MathEvaluation {
 	}
 
 	public int calcularExpressao() {
-		return 21;
+		Stack<Integer> resultado = new Stack();
+		for(int i = 0; i < pilhaPostFix.size(); i++)
+		{
+			int el = pilhaPostFix.get(i); 
+			if(el != '*' && el != '/' && el != '+' && el != '-') 
+				resultado.push(el);
+			else{
+				int el1, el2, res = 0;
+				el2 = resultado.pop();
+				el1 = resultado.pop();
+				
+				switch(el)
+				{
+				case '*':
+					res = el2 * el1;
+					break;
+				case '/':
+					res = el2 / el1;
+					break;
+				case '+':
+					res = el2 + el1;
+					break;
+				case '-':
+					res = el2 - el1;
+					break;
+				}
+				resultado.push(res);
+			}
+		}
+		return resultado.pop();
 	}
 }
